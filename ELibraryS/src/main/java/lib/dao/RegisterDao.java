@@ -2,6 +2,7 @@ package lib.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import lib.model.User;
 
@@ -34,6 +35,32 @@ public class RegisterDao implements UserDaoInterface{
 		}
 		
 		return f;
+	}
+
+	@Override
+	public User userLogin(String uname, String pass) {
+		User user=null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+		try {
+			ps = con.prepareStatement("SELECT * FROM users WHERE uname=? AND pass=?");
+
+			ps.setString(1,uname);
+			ps.setString(2,pass);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				user=new User();
+				user.setName(rs.getString("name")); 
+                user.setUserid(rs.getString("uname")); 
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("pass"));
+                user.setType(rs.getString("role")); 
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 	

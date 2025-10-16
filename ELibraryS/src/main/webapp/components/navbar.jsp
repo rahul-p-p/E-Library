@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-md-2 mx-5">
 			<a href="login.jsp" class="btn btn-success">Login</a>
-			<a href="register.jsp" class="btn btn-success">Signup</a>
+			<a href="register.jsp" class="btn btn-success">Register</a>
 		</div>
 	</div>
 </div>

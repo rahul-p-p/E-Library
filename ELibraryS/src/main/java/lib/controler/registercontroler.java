@@ -1,7 +1,6 @@
 package lib.controler;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import lib.DB.DBConnect;
 import lib.dao.RegisterDao;
@@ -46,7 +46,9 @@ public class registercontroler extends HttpServlet {
 		String email= request.getParameter("email");
 		String password= request.getParameter("pass");
 		String compassword= request.getParameter("cpass");
-		RequestDispatcher rd = null;
+		
+		HttpSession session=request.getSession();
+		
 		if(password.equals(compassword)) {
 			User us= new User();
 			us.setUserid(userid);
@@ -58,17 +60,16 @@ public class registercontroler extends HttpServlet {
 			
 			boolean f=dao.userRegister(us);
 			if(f) {
-	            request.setAttribute("Message", "Registration Successful! Please login.");
-	            rd = request.getRequestDispatcher("login.jsp");
+	            session.setAttribute("success", "Registration Successful! Please login.");
+	            response.sendRedirect("register.jsp");
 	        } else {
-	            request.setAttribute("Message", "Server Error! Try Again.");
-	            rd = request.getRequestDispatcher("register.jsp");
+	        	session.setAttribute("error", "Server Error! Try Again.");
+	        	response.sendRedirect("register.jsp");
 	        }
 	    } else {
-	        request.setAttribute("Message", "Password Mismatch!");
-	        rd = request.getRequestDispatcher("register.jsp");
+	    	session.setAttribute("error", "Password Mismatch!");
+	    	response.sendRedirect("register.jsp");
 	    }
-	    rd.forward(request, response);
 	}
 
 }

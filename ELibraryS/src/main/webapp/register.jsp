@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,17 +26,18 @@ body{
 		<%@include file="components/navbar.jsp" %>
 	</div>
     <div class="card p-5">
-	    <% String msg = (String) request.getAttribute("Message"); %>
+	    
 	     <h3 class="text-center fw-bold">REGISTER</h3>
-	     <font color="red">
-	         <%
-	             if (msg != null) {
-	                 out.print(msg);
-	                 out.print("<br>");
-	             }
-	         %>
-	     </font>
-	     <form action="registercontroler" method="post">
+		<c:if test="${not empty success }">
+			<p class="text-center text-success">${success }</p>
+			<c:remove var="success" scope="session"/>
+		</c:if>
+		<c:if test="${not empty error }">
+			<p class="text-center text-danger">${error }</p>
+			<c:remove var="error" scope="session"/>
+		</c:if>
+
+		<form action="registercontroler" method="post">
 	     	<div class="mb-2">
 	     		<label for="fullname" class="form-label fw-bold">Full Name:</label>
 	         	<input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your full name" required>

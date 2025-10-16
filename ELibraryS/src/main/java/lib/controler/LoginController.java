@@ -8,8 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.websocket.server.WsRemoteEndpointImplServer;
+
+import lib.DB.DBConnect;
 import lib.dao.LoginDao;
+import lib.dao.RegisterDao;
 import lib.model.User;
 
 /**
@@ -33,18 +38,32 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		RegisterDao dao= new RegisterDao(DBConnect.getConnection());
+		
+		HttpSession session = request.getSession();
+		
 		String userid= request.getParameter("uname");
 		String password= request.getParameter("pass");
-		
-		User user = new LoginDao().checkLogin(userid, password);
-		RequestDispatcher rd = null;
-		if(user==null) {
-			request.setAttribute("Error", "incorect User or password");
-			rd = request.getRequestDispatcher("/login.jsp");
-		}else{
-			request.setAttribute("User", user);
-			rd = request.getRequestDispatcher("/home.jsp");
+		try {
+			User user =dao.userLogin(userid, password);
+			if(user!=null) {
+				if(user.getType().equals("user")) {
+					session.setAttribute("User", user);
+					response.sendRedirect("home.jsp");
+				}else{
+					session.setAttribute("User", user);
+					response.sendRedirect("admindashboard.jsp");
+				}
+				
+			}else{
+				session.setAttribute("Error", "incorect User or password");
+				response.sendRedirect("login.jsp");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		rd.forward(request, response);
+		
+		
 	}
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,16 +34,11 @@ body{
 	</div>
 	
 	<div class="card p-5">
-		<% String error = (String)request.getAttribute("Error"); %>
 		<h3 class="text-center mb-3 fw-bold">LOGIN</h3>
-		<font color="red">
-		<%
-			if(error!=null){
-				out.print(error);
-				out.print("</br>");
-			}
-		 %>
-		</font>
+		<c:if test="${not empty Error }">
+			<p class="text-center text-danger">${Error }</p>
+			<c:remove var="Error" scope="session"/>
+		</c:if>
 		<form action="LoginController" method="post" >
 	     	<div class="mb-2">
 	     		<label for="uname" class="form-label fw-bold">Username:</label>
