@@ -34,7 +34,7 @@ body{
 	             }
 	         %>
 	     </font>
-	     <form action="registercontroller">
+	     <form action="registercontroler" method="post">
 	     	<div class="mb-2">
 	     		<label for="fullname" class="form-label fw-bold">Full Name:</label>
 	         	<input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your full name" required>
