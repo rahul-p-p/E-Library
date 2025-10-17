@@ -16,5 +16,15 @@
   	<description></description>
   	<servlet-class>lib.controler.registercontroler</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>BookServlet</servlet-name>
+  	<display-name>BookServlet</display-name>
+  	<description></description>
+  	<servlet-class>lib.controler.BookServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>BookServlet</servlet-name>
+  	<url-pattern>/BookServlet</url-pattern>
+  </servlet-mapping>
   
 </web-app>

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.websocket.server.WsRemoteEndpointImplServer;
 
 import lib.DB.DBConnect;
-import lib.dao.LoginDao;
 import lib.dao.RegisterDao;
 import lib.model.User;
 
