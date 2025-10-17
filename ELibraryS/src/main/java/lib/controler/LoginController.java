@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
 					response.sendRedirect("home.jsp");
 				}else{
 					session.setAttribute("User", user);
-					response.sendRedirect("admindashboard.jsp");
+					response.sendRedirect("index2.jsp");
 				}
 				
 			}else{

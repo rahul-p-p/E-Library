@@ -6,21 +6,88 @@
     <meta charset="UTF-8">
     <title>Update Book</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; padding: 20px; background-color: #f8f9fa; }
-        .form-container { max-width: 600px; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { margin-top: 0; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        .form-group input[type="text"], .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .form-group textarea { resize: vertical; min-height: 100px; }
-        .form-group input[type="file"] { padding: 5px; }
-        .current-file { font-style: italic; color: #888; margin-top: 10px; }
-        .button-group { margin-top: 20px; }
-        .button { padding: 12px 20px; border: none; border-radius: 5px; color: #fff; font-weight: bold; cursor: pointer; }
-        .save-button { background-color: #007bff; margin-right: 10px; }
-        .save-button:hover { background-color: #0056b3; }
-        .cancel-link { text-decoration: none; color: #6c757d; }
-    </style>
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #f8f9fa;
+}
+
+.form-container {
+	max-width: 600px;
+	margin: 20px auto;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	margin-top: 0;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+	color: #555;
+}
+
+.form-group input[type="text"], .form-group textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+.form-group textarea {
+	resize: vertical;
+	min-height: 100px;
+}
+
+.form-group input[type="file"] {
+	padding: 5px;
+}
+
+.current-file {
+	font-style: italic;
+	color: #888;
+	margin-top: 10px;
+}
+
+.button-group {
+	margin-top: 20px;
+}
+
+.button {
+	padding: 12px 20px;
+	border: none;
+	border-radius: 5px;
+	color: #fff;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.save-button {
+	background-color: #007bff;
+	margin-right: 10px;
+}
+
+.save-button:hover {
+	background-color: #0056b3;
+}
+
+.cancel-link {
+	text-decoration: none;
+	color: #6c757d;
+}
+</style>
 </head>
 <body>
     <div class="form-container">
