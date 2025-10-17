@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.websocket.server.WsRemoteEndpointImplServer;
 
 import lib.DB.DBConnect;
-import lib.dao.LoginDao;
 import lib.dao.RegisterDao;
 import lib.model.User;
 
@@ -52,7 +51,7 @@ public class LoginController extends HttpServlet {
 					response.sendRedirect("home.jsp");
 				}else{
 					session.setAttribute("User", user);
-					response.sendRedirect("admindashboard.jsp");
+					response.sendRedirect("index2.jsp");
 				}
 				
 			}else{
