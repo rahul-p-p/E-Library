@@ -19,8 +19,12 @@
         .save-button:hover { background-color: #218838; }
         .cancel-link { text-decoration: none; color: #6c757d; font-size: 16px; vertical-align: middle; }
     </style>
+    <%@include file="admin/style.jsp" %>
 </head>
 <body>
+	<div>
+		<%@include file="admin/navbar.jsp" %>
+	</div>
     <div class="form-container">
         <h1>Add a New Book</h1>
         

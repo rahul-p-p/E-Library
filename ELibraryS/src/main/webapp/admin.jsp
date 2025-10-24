@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
-    <%@include file="components/style.jsp" %>
     <style>
 .booklist{
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -87,10 +86,11 @@ tr:nth-child(even) {
 	background-color: #dc3545;
 }
     </style>
+    <%@include file="admin/style.jsp" %>
 </head>
 <body>
 	<div>
-		<%@include file="components/navbar.jsp" %>
+		<%@include file="admin/navbar.jsp" %>
 	</div>
 	<div class="booklist">
 		<div class="container">

@@ -61,12 +61,11 @@ p {
 	background-color: #218838;
 }
 </style>
-    </style>
-    <%@include file="components/style.jsp" %>
+    <%@include file="admin/style.jsp" %>
 </head>
 <body>
     <div>
-        <%@include file="components/navbar.jsp" %>
+        <%@include file="admin/navbar.jsp" %>
     </div>
     <div class="admindash">
         <div class="container">
