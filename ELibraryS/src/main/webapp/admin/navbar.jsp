@@ -61,7 +61,7 @@
          <a class="nav-link active" aria-current="page" href="addBookForm.jsp"><i class="fa-solid fa-book"></i>AddBook</a>
        </li>
        <li class="nav-item">
-         <a class="nav-link active" aria-current="page" href="admin.jsp"><i class="fa-solid fa-bookmark"></i>Books</a>
+         <a class="nav-link active" href="${pageContext.request.contextPath}/admin?action=list"><i class="fa-regular fa-pen-to-square"></i>UpdateBook</a>
        </li>
      </ul>
      

@@ -1,50 +1,111 @@
 package lib.dao;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import java.sql.*;
+import java.util.*;
 import lib.model.Book;
 
-/**
- * This class acts as a Data Access Object.
- * It simulates a database using an in-memory List.
- */
 public class BookDAO {
-    private static final List<Book> books = new ArrayList<>();
-    // Used to generate unique IDs for books.
-    private static final AtomicInteger idCounter = new AtomicInteger(0);
+    private Connection conn;
 
-    // Static block to initialize with some dummy data.
-    static {
-        books.add(new Book(idCounter.incrementAndGet(), "The Great Gatsby", "F. Scott Fitzgerald", "A novel about the American dream.", "great-gatsby.pdf"));
-        books.add(new Book(idCounter.incrementAndGet(), "To Kill a Mockingbird", "Harper Lee", "A story of racial injustice and loss of innocence.", "mockingbird.pdf"));
-        books.add(new Book(idCounter.incrementAndGet(), "1984", "George Orwell", "A dystopian novel about totalitarianism.", "1984.pdf"));
+    public BookDAO(Connection conn) {
+        this.conn = conn;
     }
 
+    // ✅ ADD new book
+    public boolean addBook(Book book) {
+        String sql = "INSERT INTO books(title, author, category, description, file_path, book_image, added_by) VALUES (?,?,?,?,?,?,?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, book.getTitle());
+            ps.setString(2, book.getAuthor());
+            ps.setString(3, book.getCategory());
+            ps.setString(4, book.getDescription());
+            ps.setString(5, book.getFile_path());
+            ps.setString(6, book.getBook_image());
+            ps.setString(7, book.getAddedby());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // ✅ LIST all books
     public List<Book> getAllBooks() {
-        return new ArrayList<>(books); // Return a copy to prevent external modification
+        List<Book> list = new ArrayList<>();
+        String sql = "SELECT * FROM books ORDER BY added_date DESC";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Book b = new Book();
+                b.setId(rs.getInt(" book_id"));
+                b.setTitle(rs.getString("title"));
+                b.setAuthor(rs.getString("author"));
+                b.setCategory(rs.getString("category"));
+                b.setDescription(rs.getString("description"));
+                b.setFile_path(rs.getString("file_path"));
+                b.setBook_image(rs.getString("book_image"));
+                b.setAddedby(rs.getString("added_by"));
+                list.add(b);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
+    // ✅ GET book by ID
     public Book getBookById(int id) {
-        return books.stream()
-                .filter(book -> book.getId() == id)
-                .findFirst()
-                .orElse(null);
+        String sql = "SELECT * FROM books WHERE book_id=?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Book b = new Book();
+                    b.setId(rs.getInt("book_id"));
+                    b.setTitle(rs.getString("title"));
+                    b.setAuthor(rs.getString("author"));
+                    b.setCategory(rs.getString("category"));
+                    b.setDescription(rs.getString("description"));
+                    b.setFile_path(rs.getString("file_path"));
+                    b.setBook_image(rs.getString("book_image"));
+                    b.setAddedby(rs.getString("added_by"));
+                    return b;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public void addBook(Book book) {
-        book.setId(idCounter.incrementAndGet());
-        books.add(book);
+    // ✅ UPDATE book
+    public boolean updateBook(Book book) {
+        String sql = "UPDATE books SET title=?, author=?, category=?, description=?, file_path=?, book_image=? WHERE book_id=?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, book.getTitle());
+            ps.setString(2, book.getAuthor());
+            ps.setString(3, book.getCategory());
+            ps.setString(4, book.getDescription());
+            ps.setString(5, book.getFile_path());
+            ps.setString(6, book.getBook_image());
+            ps.setInt(7, book.getId());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public void updateBook(Book updatedBook) {
-        books.replaceAll(book -> book.getId() == updatedBook.getId() ? updatedBook : book);
-    }
-
-    public void deleteBook(int id) {
-        books.removeIf(book -> book.getId() == id);
+    // ✅ DELETE book
+    public boolean deleteBook(int id) {
+        String sql = "DELETE FROM books WHERE book_id=?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
 

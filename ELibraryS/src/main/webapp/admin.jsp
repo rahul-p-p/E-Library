@@ -16,7 +16,7 @@
 }
 
 .container {
-	max-width: 1000px;
+	max-width: 100%;
 	margin: 20px auto;
 	background-color: #fff;
 	padding: 30px;
@@ -89,9 +89,9 @@ tr:nth-child(even) {
     <%@include file="admin/style.jsp" %>
 </head>
 <body>
-	<div>
-		<%@include file="admin/navbar.jsp" %>
-	</div>
+    <div>
+        <%@include file="admin/navbar.jsp" %>
+    </div>
 	<div class="booklist">
 		<div class="container">
         <h1>Book List</h1>
@@ -109,6 +109,7 @@ tr:nth-child(even) {
                     <th>Author</th>
                     <th>Description</th>
                     <th>Filename</th>
+                    <th>Imagename</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -119,13 +120,16 @@ tr:nth-child(even) {
                         <td><c:out value="${book.title}" /></td>
                         <td><c:out value="${book.author}" /></td>
                         <td><c:out value="${book.description}" /></td>
-                        <td><c:out value="${book.fileName}" /></td>
+                        <td><c:out value="${book.file_path}" /></td> <!-- PDF path -->
+						<td><c:out value="${book.book_image}" /></td> <!-- Image path -->
+						
+						<!--
                         <td class="action-links">
-                            <!-- ✅ Fixed Update link to include context path -->
+                            
                             <a href="${pageContext.request.contextPath}/admin?action=showUpdateForm&id=${book.id}" 
                                class="update-link">Update</a>
 
-                            <!-- ✅ Fixed Delete form action -->
+                            
                             <form action="${pageContext.request.contextPath}/admin" 
                                   method="POST" style="display:inline;" 
                                   onsubmit="return confirm('Are you sure you want to delete this book?');">
@@ -134,6 +138,22 @@ tr:nth-child(even) {
                                 <button type="submit" class="delete-button">Delete</button>
                             </form>
                         </td>
+                        -->
+                        <td class="action-links">
+						    <!-- Update Button -->
+						    <a href="${pageContext.request.contextPath}/admin?action=showUpdateForm&id=${book.id}" 
+						       class="update-link">Update</a>
+						
+						    <!-- Delete Button -->
+						    <form action="${pageContext.request.contextPath}/admin" method="POST" 
+						          style="display:inline-block; margin:0;" 
+						          onsubmit="return confirm('Are you sure you want to delete this book?');">
+						        <input type="hidden" name="action" value="delete">
+						        <input type="hidden" name="id" value="${book.id}">
+						        <button type="submit" class="delete-button">Delete</button>
+						    </form>
+						</td>
+                        
                     </tr>
                 </c:forEach>
             </tbody>
