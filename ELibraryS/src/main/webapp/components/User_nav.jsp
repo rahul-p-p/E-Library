@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page isELIgnored="false" %>
 <div class="container-fluid p-3" style="background-color: #edebeb">
 	<div class="row">
 		<div class="col-md-3">
@@ -10,8 +12,19 @@
 			</form>
 		</div>
 		<div class="col-md-2 mx-5">
+		<c:if test="${not empty User}">
+			<div class="d-flex align-items-center justify-content-end">
+				<h4 class="mb-0 me-3">
+					<i class="fa-solid fa-user"></i>&nbsp;${User.name}
+				</h4>
+				<a href="logout.jsp" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Logout</a>
+			</div>
+		</c:if>
+
+		<c:if test="${empty User}">
 			<a href="login.jsp" class="btn btn-success">Login</a>
 			<a href="register.jsp" class="btn btn-success">Register</a>
+		</c:if>
 		</div>
 	</div>
 </div>
@@ -26,7 +39,7 @@
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
        <li class="nav-item">
-         <a class="nav-link active" aria-current="page" href="index.jsp"><i class="fa-solid fa-house"></i>Home</a>
+         <a class="nav-link active" aria-current="page" href="User_Home.jsp"><i class="fa-solid fa-house"></i>Home</a>
        </li>
        <li class="nav-item">
          <a class="nav-link active" aria-current="page" href="AllBooks.jsp"><i class="fa-solid fa-book"></i>Books</a>
@@ -35,7 +48,7 @@
          <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-bookmark"></i>MyBook</a>
        </li>
        <li class="nav-item">
-         <a class="nav-link active" aria-current="page" href="Authors.jsp"><i class="fa-solid fa-pen-nib"></i>Authors</a>
+         <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-pen-nib"></i>Authors</a>
        </li>
        <li class="nav-item">
          <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-arrow-trend-up"></i>Trending</a>
